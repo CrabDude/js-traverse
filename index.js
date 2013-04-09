@@ -8,6 +8,11 @@ function Traverse (obj) {
 
 Traverse.prototype.get = function (ps) {
     var node = this.value;
+
+    if (typeof ps === 'string') {
+        ps = ps ? ps.split('.') : [];
+    }
+
     for (var i = 0; i < ps.length; i ++) {
         var key = ps[i];
         if (!hasOwnProperty.call(node, key)) {
@@ -21,6 +26,11 @@ Traverse.prototype.get = function (ps) {
 
 Traverse.prototype.has = function (ps) {
     var node = this.value;
+
+    if (typeof ps === 'string') {
+        ps = ps ? ps.split('.') : [];
+    }
+
     for (var i = 0; i < ps.length; i ++) {
         var key = ps[i];
         if (!hasOwnProperty.call(node, key)) {
@@ -33,6 +43,15 @@ Traverse.prototype.has = function (ps) {
 
 Traverse.prototype.set = function (ps, value) {
     var node = this.value;
+
+    if (typeof ps === 'string') {
+        ps = ps ? ps.split('.') : [];
+    }
+
+    if (!ps.length) {
+        return;
+    }
+
     for (var i = 0; i < ps.length - 1; i ++) {
         var key = ps[i];
         if (!hasOwnProperty.call(node, key)) node[key] = {};
